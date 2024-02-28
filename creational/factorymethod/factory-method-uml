@@ -1,0 +1,41 @@
+@startuml
+!define ABSTRACT_CLASS abstract class
+!define ABSTRACT_METHOD abstract method
+
+ABSTRACT_CLASS MenuItem {
+    + getDetails(): void
+}
+
+class Pizza {
+    + getDetails(): void
+}
+
+class Pasta {
+    + getDetails(): void
+}
+
+class Burger {
+    + getDetails(): void
+}
+
+ABSTRACT_CLASS Kitchen {
+    + createMenuItem(type: string): MenuItem
+}
+
+class Client {
+    + createMenuItem(): MenuItem
+    + getMenuItemDetails(): void
+}
+
+Client --> Kitchen: createMenuItem
+Kitchen --> MenuItem: createMenuItem
+MenuItem <|.. Pizza
+MenuItem <|.. Pasta
+MenuItem <|.. Burger
+
+note right of Client
+    The Client class drives the design pattern,
+    creating different types of menu items.
+end note
+
+@enduml
