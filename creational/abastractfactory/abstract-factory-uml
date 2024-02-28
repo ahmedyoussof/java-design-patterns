@@ -1,0 +1,89 @@
+@startuml
+left to right direction
+!define ABSTRACT_CLASS abstract class
+!define ABSTRACT_METHOD abstract method
+
+
+package PaymentMethods {
+    interface PaymentMethod {
+        + processPayment(amount: double): void
+    }
+
+    class CashOnDelivery {
+        + processPayment(amount: double): void
+    }
+
+    class CreditCard {
+        + processPayment(amount: double): void
+    }
+
+    class Paypal {
+        + processPayment(amount: double): void
+    }
+
+    class Pickup {
+        + processPayment(amount: double): void
+    }
+
+    class Stripe {
+        + processPayment(amount: double): void
+    }
+}
+
+package ShippingMethods {
+    interface Shipping {
+        + getShipping(): void
+    }
+
+    class ExpressShipping {
+        + getShipping(): void
+    }
+
+    class StandardShipping {
+        + getShipping(): void
+    }
+}
+
+package StoreFactories {
+    ABSTRACT_CLASS StoreFactory {
+        + createPaymentMethod(type: string): PaymentMethods.PaymentMethod
+        + createShipping(type: string): ShippingMethods.Shipping
+    }
+
+    class OfflineStoreFactory {
+        + createPaymentMethod(type: string): PaymentMethods.PaymentMethod
+        + createShipping(type: string): ShippingMethods.Shipping
+    }
+
+    class OnlineStoreFactory {
+        + createPaymentMethod(type: string): PaymentMethods.PaymentMethod
+        + createShipping(type: string): ShippingMethods.Shipping
+    }
+
+    class StoreFactoryCreator {
+        + getFactory(factoryType: string): StoreFactory
+    }
+}
+
+class Client {
+    + getFactory(): StoreFactories.StoreFactory
+    + createPaymentMethod(type: string): PaymentMethods.PaymentMethod
+    + createShipping(type: string): ShippingMethods.Shipping
+}
+
+StoreFactories.StoreFactory <|-- StoreFactories.OnlineStoreFactory
+StoreFactories.StoreFactory <|-- StoreFactories.OfflineStoreFactory
+
+Client --> StoreFactories.StoreFactoryCreator: getFactory
+Client --> StoreFactories.StoreFactory: createPaymentMethod
+Client --> PaymentMethods.PaymentMethod: processPayment
+Client --> StoreFactories.StoreFactory: createShipping
+Client --> ShippingMethods.Shipping: getShipping
+
+note bottom of Client
+    The Client class drives the design pattern,
+    creating online and offline store factories,
+    and obtaining payment and shipping methods.
+end note
+
+@enduml
