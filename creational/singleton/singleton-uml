@@ -1,0 +1,17 @@
+@startuml
+
+class Singleton {
+  -instance: Singleton
+  +getInstance(): Singleton
+  +showMessage(): void
+}
+
+class Client {
+  +getInstance(): Singleton
+}
+
+Singleton -up-> Singleton: <<create>>
+Client --> Singleton
+
+
+@enduml
