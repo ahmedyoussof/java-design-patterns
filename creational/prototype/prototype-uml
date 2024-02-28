@@ -1,0 +1,22 @@
+@startuml
+
+interface Prototype {
+  {abstract} +clone(): Prototype
+}
+
+class ConcretePrototype {
+  -data: String
+  +ConcretePrototype(data: String)
+  +clone(): Prototype
+  +getData(): String
+  +setData(data: String): void
+}
+
+class Client {
+  +main(): void
+}
+
+Client -> ConcretePrototype
+Prototype <|-- ConcretePrototype
+
+@enduml
