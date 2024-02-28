@@ -1,0 +1,44 @@
+@startuml
+
+interface SandwichBuilder {
+  {abstract} +buildBread(): void
+  {abstract} +buildFilling(): void
+  {abstract} +buildSauce(): void
+  {abstract} +buildTopping(): void
+  {abstract} +getSandwich(): Sandwich
+}
+
+class Sandwich {
+  -bread: String
+  -filling: String
+  -sauce: String
+  -topping: String
+  +getDetails(): String
+}
+
+class VeggieSandwichBuilder {
+  -sandwich: Sandwich
+  +buildBread(): void
+  +buildFilling(): void
+  +buildSauce(): void
+  +buildTopping(): void
+  +getSandwich(): Sandwich
+}
+
+class SandwichMaker {
+  -sandwichBuilder: SandwichBuilder
+  +buildSandwich(): void
+  +getSandwich(): Sandwich
+}
+
+class Client {
+  +makeSandwitch(): void
+}
+
+Client --> SandwichMaker
+SandwichMaker *-> VeggieSandwichBuilder
+VeggieSandwichBuilder --> Sandwich
+SandwichBuilder <|-- VeggieSandwichBuilder
+
+
+@enduml
