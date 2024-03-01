@@ -1,0 +1,66 @@
+'bridge design pattern is a structural pattern that lets you split a large class or a set of closely related classes into two separate hierarchies—abstraction and implementation—which can be developed independently of each other. The bridge uses encapsulation, aggregation, and can use inheritance to separate responsibilities into different classes.
+@startuml
+interface Device {
+    +isEnabled(): boolean
+    +enable(): void
+    +disable(): void
+    +getVolume(): int
+    +setVolume(percent: int): void
+    +getChannel(): int
+    +setChannel(channel: int): void
+    +printStatus(): void
+}
+
+class TV implements Device {
+    +isEnabled(): boolean
+    +enable(): void
+    +disable(): void
+    +getVolume(): int
+    +setVolume(percent: int): void
+    +getChannel(): int
+    +setChannel(channel: int): void
+    +printStatus(): void
+}
+class Radio implements Device {
+    +isEnabled(): boolean
+    +enable(): void
+    +disable(): void
+    +getVolume(): int
+    +setVolume(percent: int): void
+    +getChannel(): int
+    +setChannel(channel: int): void
+    +printStatus(): void
+}
+
+abstract class Remote {
+    -device: Device
+    +togglePower(): void
+    +volumeDown(): void
+    +volumeUp(): void
+    +channelDown(): void
+    +channelUp(): void
+}
+class BasicRemote extends Remote {
+    +togglePower(): void
+    +volumeDown(): void
+    +volumeUp(): void
+    +channelDown(): void
+    +channelUp(): void
+}
+
+class AdvancedRemote extends Remote {
+    +mute(): void
+}
+
+class Client {
+    -testRemote(remote: Remote): void
+}
+
+Client -r-> Remote: testRemote
+Remote *--> Device
+
+
+
+@enduml
+
+
