@@ -1,0 +1,34 @@
+@startuml
+
+Class RoundHole {
+  + radius
+  + getRadius()
+  + fits(peg: RoundPeg)
+}
+
+Class RoundPeg {
+  + radius
+  + getRadius()
+}
+
+Class SquarePeg {
+  + width
+  + getWidth()
+}
+
+Class SquarePegAdapter {
+  - peg: SquarePeg
+  + SquarePegAdapter(peg: SquarePeg)
+  + getRadius()
+}
+
+Class Client {
+  testSquarePegAdapter()
+}
+
+Client -right-> SquarePegAdapter
+SquarePegAdapter -up-|> RoundPeg
+RoundHole -right-> RoundPeg
+SquarePegAdapter -right-> SquarePeg
+
+@enduml
