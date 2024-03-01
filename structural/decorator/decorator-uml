@@ -1,0 +1,46 @@
+@startuml
+skinparam linetype ortho
+interface Coffee {
+  +getDescription(): String
+  +getCost(): double
+}
+
+class SimpleCoffee {
+  +getDescription(): String
+  +getCost(): double
+}
+
+class CoffeeDecorator {
+  -decoratedCoffee: Coffee
+  +CoffeeDecorator(decoratedCoffee: Coffee)
+  +getDescription(): String
+  +getCost(): double
+}
+
+class MilkDecorator {
+  +MilkDecorator(decoratedCoffee: Coffee)
+  +getDescription(): String
+  +getCost(): double
+}
+
+class SugarDecorator {
+  +SugarDecorator(decoratedCoffee: Coffee)
+  +getDescription(): String
+  +getCost(): double
+}
+
+class Client {
+  +main(): void
+}
+
+Coffee <|-- SimpleCoffee
+Coffee <|-- CoffeeDecorator
+CoffeeDecorator *--|> Coffee : decoratedCoffee
+CoffeeDecorator <|-- MilkDecorator
+CoffeeDecorator <|-- SugarDecorator
+Client -r-> SimpleCoffee
+Client -r-> MilkDecorator
+Client -r-> SugarDecorator
+
+
+@enduml
