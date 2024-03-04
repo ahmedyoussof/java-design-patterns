@@ -1,0 +1,55 @@
+@startuml
+
+Class VideoFile {
+    - name: String
+    - codecType: String
+}
+
+interface Codec {
+
+}
+
+Class MPEG4Codec {
+    + type: String
+}
+
+Class OggCodec {
+    + type: String
+}
+
+Class CodecFactory {
+    + extract(VideoFile): Codec
+}
+
+Class BitrateReader {
+    + read(VideoFile, Codec): VideoFile
+    + convert(VideoFile, Codec): VideoFile
+}
+
+Class AudioMixer {
+    + mix(VideoFile): VideoFile
+}
+
+Class VideoConversionFacade {
+    + convertVideo(String, String): File
+}
+
+Class Client {
+    + convertVideo(String, String): File
+}
+
+Client -r-> VideoConversionFacade
+VideoConversionFacade -d-> VideoFile: <<create>>
+VideoConversionFacade -d-> Codec: <<create>>
+VideoConversionFacade -d-> BitrateReader: <<read>>
+VideoConversionFacade -d-> BitrateReader: <<convert>>
+VideoConversionFacade -d-> AudioMixer: <<mix>>
+
+CodecFactory -d-> MPEG4Codec
+CodecFactory -d-> OggCodec
+
+CodecFactory -u-> Codec
+
+
+
+@enduml
