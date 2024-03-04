@@ -1,0 +1,86 @@
+@startuml
+
+Class Client {
+    +loadShapes(): void
+}
+
+Interface Shape {
+    +getX(): int
+    +getY(): int
+    +getHeight(): int
+    +getWidth(): int
+    +getColor(): string
+    +paint(graphics: Graphics): void
+}
+
+Class BaseShape implements Shape {
+    -x: int
+    -y: int
+    -color: string
+    +BaseShape(x: int, y: int, color: string)
+    +getX(): int
+    +getY(): int
+    +getHeight(): int
+    +getWidth(): int
+    +getColor(): string
+    +paint(graphics: Graphics): void
+}
+
+Class Circle extends BaseShape {
+    -radius: int
+    +Circle(x: int, y: int, radius: int, color: string)
+    +getRadius(): int
+    +paint(graphics: Graphics): void
+}
+
+Class Rectangle extends BaseShape {
+    -width: int
+    -height: int
+    +Rectangle(x: int, y: int, width: int, height: int, color: string)
+    +getWidth(): int
+    +getHeight(): int
+    +paint(graphics: Graphics): void
+}
+
+Class Dot extends BaseShape {
+    +Dot(x: int, y: int, color: string)
+    +paint(graphics: Graphics): void
+}
+
+Class CompoundShape extends BaseShape {
+    -children: List<Shape>
+    +CompoundShape()
+    +add(shape: Shape): void
+    +remove(shape: Shape): void
+    +getX(): int
+    +getY(): int
+    +getHeight(): int
+    +getWidth(): int
+    +paint(graphics: Graphics): void
+}
+
+
+Class Graphics {
+    +drawCircle(x: int, y: int, radius: int, color: string): void
+    +drawRectangle(x: int, y: int, width: int, height: int, color: string): void
+    +drawDot(x: int, y: int, color: string): void
+}
+
+Class ImageEditor {
+    -graphics: Graphics
+    -allShapes: CompoundShape
+    +ImageEditor(): ImageEditor
+    +loadShapes(): void
+    +drawShapes(): void
+}
+
+Client -right-> ImageEditor: <<loadShapes>>
+ImageEditor -right-> Shape: <<paint>>
+ImageEditor -right-> Graphics: <<drawShapes>>
+CompoundShape *-down- Shape
+Shape --> Graphics: <<paint>>
+
+
+
+
+@enduml
