@@ -1,0 +1,33 @@
+@startuml
+
+Interface GameObject {
+    + void render()
+}
+
+Class Tree {
+    - type: String
+    + Tree(type: String):Tree
+    + render(): void
+}
+
+Class Board {
+    - type: String
+    + Board(type: String):Board
+    + render(): void
+}
+
+Class GameObjectFactory {
+    + createGameObject(type: String): GameObject
+}
+
+Class Client {
+    + testGameObjects(): void
+}
+
+GameObject <|-- Tree
+GameObject <|-- Board
+
+GameObjectFactory -r-> GameObject: creates
+Client -r-> GameObjectFactory: asks
+
+@enduml
