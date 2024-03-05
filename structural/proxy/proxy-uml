@@ -4,13 +4,13 @@ Interface Image {
     +display()
 }
 
-Class RealImage implements Image {
+Class RealImage {
     -fileName
     +loadFromDisk()
     +display()
 }
 
-Class ProxyImage implements Image {
+Class ProxyImage {
     -realImage
     -fileName
     +display()
@@ -18,8 +18,10 @@ Class ProxyImage implements Image {
 
 
 
-Client -> Image: request
-ProxyImage -> RealImage: delegates
+Image <|--- RealImage
+Image <|---- ProxyImage
+Client -r-> Image: request
+ProxyImage -r-> RealImage: delegates
 
 
 @enduml
