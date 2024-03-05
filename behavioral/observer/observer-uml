@@ -1,0 +1,39 @@
+@startuml
+
+Interface StockObserver {
+    +update()
+}
+
+Class Investor {
+    -name: String
+    +update(): void
+}
+
+Interface StockMarket {
+    +addObserver(StockObserver): void
+    +removeObserver(StockObserver): void
+    +notifyObservers(): void
+    +changeStockPrice(): void
+}
+
+Class ConcreteStockMarket {
+    -observers: StockObserver[]
+    +addObserver(StockObserver): void
+    +removeObserver(StockObserver): void
+    +notifyObservers(): void
+    +changeStockPrice(): void
+}
+
+Class Client {
+    +main(): void
+}
+
+Client -r-> StockMarket
+StockMarket --> StockObserver
+StockMarket <|-- ConcreteStockMarket
+StockObserver <|-- Investor
+ConcreteStockMarket *-l- StockObserver
+
+
+
+@enduml
