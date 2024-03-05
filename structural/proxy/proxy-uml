@@ -1,0 +1,25 @@
+@startuml
+
+Interface Image {
+    +display()
+}
+
+Class RealImage implements Image {
+    -fileName
+    +loadFromDisk()
+    +display()
+}
+
+Class ProxyImage implements Image {
+    -realImage
+    -fileName
+    +display()
+}
+
+
+
+Client -> Image: request
+ProxyImage -> RealImage: delegates
+
+
+@enduml
