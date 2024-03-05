@@ -1,0 +1,36 @@
+@startuml
+
+abstract class RequestHandler {
+    -nextHandler: RequestHandler
+    +setNextHandler(): void
+    +handleRequest(): void
+}
+
+class Manager {
+    +setNextHandler(): void
+    +handleRequest(): void
+}
+
+class SeniorManager {
+    +setNextHandler(): void
+    +handleRequest(): void
+}
+
+class Director {
+    +setNextHandler(): void
+    +handleRequest(): void
+}
+
+class Client {
+    +handleRequest(): void
+}
+
+Client -right-> RequestHandler
+RequestHandler <|-- Manager
+RequestHandler <|-- SeniorManager
+RequestHandler <|-- Director
+
+Manager -right-> SeniorManager
+SeniorManager -right-> Director
+
+@enduml
