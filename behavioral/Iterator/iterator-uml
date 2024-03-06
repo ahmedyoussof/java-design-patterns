@@ -1,0 +1,39 @@
+@startuml
+
+Interface Iterator {
+    + hasNext(): boolean
+    + next(): Object
+}
+
+Interface Collection {
+    + createIterator(): Iterator
+}
+
+Class CustomIterator {
+    - index: int
+    - collection: Collection
+    + hasNext(): boolean
+    + next(): Object
+}
+
+Class CustomCollection {
+    - items: Object[]
+    + createIterator(): Iterator
+}
+
+Class Client {
+    + useIterator(): void
+    + useCollection(): void
+}
+
+Client -d-> Iterator
+Client -d-> Collection
+
+CustomIterator -u-|> Iterator
+CustomCollection -u-|> Collection
+
+CustomIterator *-l- CustomCollection
+
+
+
+@enduml
