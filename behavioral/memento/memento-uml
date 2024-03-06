@@ -1,0 +1,32 @@
+@startuml
+
+class TextEditor {
+  - text: StringBuilder
+  + TextEditor()
+  + append(text: String)
+  + getText(): String
+  + save(): TextEditorMemento
+  + restore(memento: TextEditorMemento)
+}
+
+class TextEditorMemento {
+  - text: String
+  + TextEditorMemento(text: String)
+  + getText(): String
+}
+
+class TextEditorHistory {
+  - history: Stack<TextEditorMemento>
+  + TextEditorHistory()
+  + saveState(memento: TextEditorMemento)
+  + restoreState(): TextEditorMemento
+}
+
+Client -l-> TextEditor: uses
+Client -d-> TextEditorHistory: uses
+TextEditorHistory *-l-> TextEditorMemento: contains
+TextEditor -d-> TextEditorMemento: uses
+
+
+
+@enduml
