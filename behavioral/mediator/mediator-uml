@@ -1,0 +1,38 @@
+@startuml
+
+Interface ChatMediator {
+    + sendMessage(message: String, user: User)
+    + addUser(user: User)
+}
+
+Interface User {
+    + sendMessage(message: String)
+    + receiveMessage(message: String)
+}
+
+Class ChatRoom {
+    - users: List<User>
+    + sendMessage(message: String, user: User)
+    + addUser(user: User)
+}
+
+Class ChatUser {
+    - name: String
+    + ChatUser(name: String, mediator: ChatMediator)
+    + sendMessage(message: String)
+    + receiveMessage(message: String)
+}
+
+Class Client {
+    + useChatMediator()
+    + useUser()
+}
+
+Client -d-> User
+Client -r-> ChatMediator
+ChatRoom -u-|> ChatMediator
+User *-r- ChatRoom
+ChatUser -u-|> User
+
+
+@enduml
