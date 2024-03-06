@@ -27,6 +27,4 @@ Client -d-> TextEditorHistory: uses
 TextEditorHistory *-l-> TextEditorMemento: contains
 TextEditor -d-> TextEditorMemento: uses
 
-
-
 @enduml
