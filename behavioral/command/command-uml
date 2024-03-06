@@ -1,0 +1,51 @@
+@startuml
+
+Interface Command {
+    +execute():void
+    +undo():void
+}
+
+Class Light {
+    +turnOn():void
+    +turnOff():void
+}
+
+Class Camera {
+    +startRecording():void
+    +stopRecording():void
+}
+
+Class LightOnCommand {
+    -light:Light
+    +execute():void
+    +undo():void
+}
+
+
+Class CameraStartRecordingCommand {
+    -camera:Camera
+    +execute():void
+    +undo():void
+}
+
+Class DeviceController {
+    -commands:Command[]
+    +setCommand(index:int, command:Command):void
+    +executeCommands():void
+    +undoCommands():void
+}
+
+Class Client {
+    -deviceController:DeviceController
+    +controlDevices():void
+}
+
+Client -r-> DeviceController: uses
+DeviceController -d-> Command: controls
+DeviceController *-d- Command: contains
+LightOnCommand *-d- Light: uses
+CameraStartRecordingCommand *-d- Camera: uses
+LightOnCommand -u-|> Command
+CameraStartRecordingCommand -u-|> Command
+
+@enduml
