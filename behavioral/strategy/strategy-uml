@@ -12,14 +12,18 @@ Class QuickSortingStrategy {
     + sort(int[] data): void
 }
 
+Class Sorter {
+    - strategy: SortingStrategy
+    + sort(int[] data): void
+}
+
 Class Client {
     + tesSortingStrategy(): void
 }
 
-Client -right-> SortingStrategy
-
+Client -r-> Sorter: uses
+Sorter *-r-> SortingStrategy: uses
 SortingStrategy <|-d- BubbleSortingStrategy
-
 SortingStrategy <|-d- QuickSortingStrategy
 
 
