@@ -1,0 +1,34 @@
+@startuml
+
+Abstract Class CoffeeMaker {
+  + makeCoffee(): void
+  - boilWater(): void
+  - pourInCup(): void
+  # brewCoffee(): void
+  # addMilk(): void
+  # addSugar(): void
+  # customerWantsMilk(): boolean
+}
+
+Class EspressoMaker {
+  # brewCoffee(): void
+  # addMilk(): void
+  # customerWantsMilk(): boolean
+}
+
+Class LatteCoffeeMaker {
+  # brewCoffee(): void
+  # addMilk(): void
+}
+
+Class Client {
+  + makeCoffee(): void
+}
+
+Client -right-> CoffeeMaker: uses
+CoffeeMaker <|-- EspressoMaker
+CoffeeMaker <|-- LatteCoffeeMaker
+
+
+
+@enduml
