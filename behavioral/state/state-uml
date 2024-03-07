@@ -1,0 +1,43 @@
+@startuml
+
+Interface FanState {
+    + handleRequest(Fan fan): void
+}
+
+Class Fan {
+    - FanState currentState
+    + setState(FanState state): void
+    + request(): void
+}
+
+Class OffState {
+    + handleRequest(Fan fan): void
+}
+
+Class LowState {
+    + handleRequest(Fan fan): void
+}
+
+Class MediumState {
+    + handleRequest(Fan fan): void
+}
+
+Class HighState {
+    + handleRequest(Fan fan): void
+}
+
+Class Client {
+    + testFanState(): void
+}
+
+Client -r-> Fan: requests
+Fan --> FanState: uses
+
+FanState <|-- OffState
+FanState <|-- LowState
+FanState <|-- MediumState
+FanState <|-- HighState
+
+
+
+@enduml
