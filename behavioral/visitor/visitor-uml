@@ -1,0 +1,44 @@
+@startuml
+
+Interface ShoppingCartVisitor {
+    +visit(Item item): double
+    +visit(Book book): double
+    +visit(Fruit fruit): double
+}
+
+Interface ShoppingCartElement {
+    +accept(ShoppingCartVisitor visitor): double
+}
+
+Class Item {
+    +accept(ShoppingCartVisitor visitor): double
+}
+
+Class Book {
+    +accept(ShoppingCartVisitor visitor): double
+}
+
+Class Fruit {
+    +accept(ShoppingCartVisitor visitor): double
+}
+
+Class ShoppingCartVisitorImpl {
+    +visit(Item item): double
+    +visit(Book book): double
+    +visit(Fruit fruit): double
+}
+
+Class Client {
+    +main(String[] args): void
+}
+
+Client -d-> ShoppingCartVisitor
+Client -r-> ShoppingCartElement
+
+ShoppingCartElement <|-- Item
+ShoppingCartElement <|-- Book
+ShoppingCartElement <|-- Fruit
+
+ShoppingCartVisitor <|-- ShoppingCartVisitorImpl
+
+@enduml
